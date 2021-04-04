@@ -19,20 +19,20 @@ class ExpertBase():
         return
 
     @abc.abstractclassmethod
-    def on_start(self, order_manager, ea_parameters, current_time):
+    def on_start(self, order_manager, ea_parameters):
         """Called when expert has been initialsied with an order manager and program manager successfully"""
         return
 
     @abc.abstractclassmethod
-    def on_data(self, order_manager, data_buffer, current_time):
+    def on_data(self, order_manager, data_buffer):
         """Called when new data has been received"""
         return
 
     @abc.abstractclassmethod
-    def on_deinit(self, order_manager, data_buffer, current_time, reason):
+    def on_deinit(self, order_manager, data_buffer, reason):
         """Called upon the deinitialisation of the expert"""
         return
 
     @abc.abstractclassmethod
-    def on_trade(self, order_manager, data_buffer, current_time):
+    def on_trade(self, order_manager, data_buffer):
         """Called when a new trade event occurs"""

@@ -7,7 +7,7 @@ from arctic import Arctic
 from arctic.arctic import TICK_STORE
 
 
-path = r"C:\Users\harry\Downloads\Downloaded Data\*.csv"
+path = r"C:\Users\harry\Documents\Downloaded Symbol Data\FX OHLC 1M\GBPUSD\*.csv"
 
 merged = pd.DataFrame(columns=["time","open", "high", "low", "close"])
 
@@ -27,4 +27,4 @@ print(merged.head(10))
 store = Arctic('192.168.0.43')
 store.initialize_library('FX OHLC 1M')
 library = store['FX OHLC 1M']
-library.write('EURUSD', merged)
+library.write('GBPUSD', merged)
