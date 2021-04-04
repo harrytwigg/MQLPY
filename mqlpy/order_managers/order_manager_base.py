@@ -11,41 +11,41 @@ import abc
 class OrderManagerBase():
     __metaclass__ = abc.ABCMeta
 
-    def setCurrentDateTime(self, currentDateTime=None):
+    def set_current_date_time(self, current_date_time=None):
         """Optionally set the current dateTime for backtesting"""
-        self.currentDateTime = currentDateTime
+        self.current_date_time = current_date_time
 
     @abc.abstractclassmethod
-    def orderOpen(self, symbol, orderType, volume, stopLoss, takeProfit, typeTime, expiration, stopLimit, comment):
+    def order_open(self, symbol, orderType, volume, stop_loss, take_profit, type_time, expiration, stop_limit, comment):
         """Places a pending order with specified parameters"""
         return
     
     @abc.abstractclassmethod
-    def orderModify(self, ticket, price, stopLoss, takeProfit, typeTime, expiration, stopLimit):
+    def order_modify(self, ticket, price, stop_loss, take_profit, type_time, expiration, stop_limit):
         """Modifies a pending order parameters"""
         return
     
     @abc.abstractclassmethod
-    def orderDelete(self, ticket):
+    def order_delete(self, ticket):
         """Deletes a pending order"""
         return
     
     @abc.abstractclassmethod
-    def buy(self, volume, symbol, price, stopLoss, takeProfit, comment):
+    def buy(self, volume, symbol, price, stop_loss, take_profit, comment):
         """Opens a long position with specified parameters"""
         return
 
     @abc.abstractclassmethod
-    def sell(self, volume, symbol, price, stopLoss, takeProfit, comment):
+    def sell(self, volume, symbol, price, stop_loss, take_profit, comment):
         """Opens a short position with specified parameters"""
         return
     
     @abc.abstractclassmethod
-    def positionClose(self, ticket, deviation):
+    def position_close(self, ticket, deviation):
         """Closes a position with the specified ticket"""
         return
     
     @abc.abstractclassmethod
-    def positionClosePartial(self, ticket, volume, deviation):
+    def position_close_partial(self, ticket, volume, deviation):
         """Closes a position with the specified ticket"""
         return

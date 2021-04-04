@@ -2,6 +2,7 @@
 
 from enum import Enum
 
+
 class TradeRequestAction(Enum):
     """Each trade order refers to the type of the requested operation
     https://www.mql5.com/en/docs/constants/tradingconstants/enum_trade_request_actions"""
@@ -94,10 +95,8 @@ class TradeRetcode(Enum):
     TRADE_RETCODE_HEDGE_PROHIBITED = 10046
 
 
-class DataInterval(Enum):
-    """Data intervals to classify new data by timeframe"""
-    UNKNOWN = 0
-    TICK = 1
-    M1 = 2
-    M5 = 3
-    M15 = 4
+class Timeframes(Enum):
+    """All predefined timeframes of charts have unique identifiers
+    https://www.mql5.com/en/docs/constants/chartconstants/enum_timeframes"""
+    PERIOD_TICK = 0
+    PERIOD_M1 = 1

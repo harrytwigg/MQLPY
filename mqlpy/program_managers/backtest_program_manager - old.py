@@ -4,7 +4,7 @@ from datetime import datetime
 from arctic import Arctic
 from dateutil.relativedelta import relativedelta
 from mqlpy.constants_enumerations_structures.data_source_constants import *
-from mqlpy.constants_enumerations_structures.trade_constants import Timeframes
+from mqlpy.constants_enumerations_structures.trade_constants import DataInterval
 import pandas as pd
 import logging
 
@@ -12,14 +12,12 @@ import logging
 class BacktestProgramManager:
     """A program manager that takes an expert and a backtest compatible order manager, then performs a single backtest on the EA"""
 
-    def __init__(self, order_manager, expert, start_time, data_interval, end_time=datetime.utcnow()):
+    def __init__(self, order_manager, expert, start_date, data_interval, end_date=datetime.utcnow()):
         self.data_buffer = []
         data_buffer_names = []
         data_buffer_current_positions = []
-        self.start_time = start_time
-        self.end_time = end_time
 
-        if data_interval == Timeframes.PERIOD_M1:
+        if data_interval == DataInterval.M1:
             relative_delta = relativedelta(minutes=1)
 
         for i in expert.data_sources:  # i is the datasource
@@ -59,19 +57,14 @@ class BacktestProgramManager:
                         incrementor_2 += 1
                     incrementor += 1
 
-        # Trim data outside of the entire test dataset
-        for buffer_index in range(0, len(self.data_buffer)):
-            self.data_buffer[buffer_index] = self.data_buffer[buffer_index].sort_index(
-            ).truncate(before=self.start_time, after=self.end_time)
+        current_date = start_date
 
-        current_time = self.start_time
-        current_index
-        while current_time <= end_time:
-            data_selection = 
-            expert.on_data(order_manager, self.data_buffer_selection(self.data_buffer, self.start_time, current_time), current_time)
-            current_time += relative_delta
-
-    # Trm data buffer maybe rewrtite for performance
-    def data_buffer_selection(self, buffers_object, start_time, current_time):
-        """Returns a trimmed data buffer for the current time"""
-        return [buffers_object[buffer_index].truncate(before=start_time, after=current_time) for buffer_index in range(0, len(buffers_object))]
+        while current_date <= end_date:
+            self.current_data_buffer = []
+            for buffer in self.data_buffer:
+                # print(type(buffer))
+                # print(type(buffer["time"].to_frame()))
+                # print(type(current_date))
+                self.current_data_buffer.append(buffer[((buffer["time"].to_frame() >= start_date) & (buffer["time"].to_frame() <= current_date))])
+            print(current_date)
+            current_date += relative_delta

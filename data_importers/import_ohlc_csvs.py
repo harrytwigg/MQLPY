@@ -3,7 +3,6 @@ https://www.histdata.com"""
 
 import glob
 import pandas as pd
-from datetime import datetime
 from arctic import Arctic
 from arctic.arctic import TICK_STORE
 
@@ -17,6 +16,7 @@ for fname in glob.glob(path):
     df['time'] = pd.to_datetime(df['time'], format='%Y%m%d %H%M%S')
     merged=merged.append(df.drop(columns="?"))
 
+# Optionally set the timestamp as the index
 merged = merged.set_index("time")
 
 print(merged.head(10))
@@ -25,6 +25,6 @@ print(merged.head(10))
 # Now time to add to the database
 
 store = Arctic('192.168.0.43')
-store.initialize_library('FX OHLCs')
-library = store['FX OHLCs']
-library.write('EURUSD 1M', merged)
+store.initialize_library('FX OHLC 1M')
+library = store['FX OHLC 1M']
+library.write('EURUSD', merged)
